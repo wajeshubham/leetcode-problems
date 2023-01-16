@@ -34,9 +34,9 @@ var insert = function (intervals, newInterval) {
       // last element in result array will be [3, 5]
       // [x, y] will be [4, 8]
       // now 5 is not lesser than 4
-      // so we have to merge this bounds
+      // so we have to merge these bounds
       // so instead of pushing we update the last element of result array
-      // we assign max between 1st index item of last item in result array and y
+      // we assign max between 1st index of the last item in the result array and y
       result[currentResultLength - 1][1] = Math.max(
         result[currentResultLength - 1][1],
         y
