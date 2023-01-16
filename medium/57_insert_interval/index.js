@@ -1,53 +1,46 @@
 /**
- * @param {number[]} nums
+ * @param {number[][]} intervals
+ * @param {number[]} newInterval
  * @return {number[][]}
  */
-// We will approach this problem with three pointers technique
-var threeSum = function (nums) {
-  // As constraints says that minimum length of nums array would be 3
-  // following can be our quick case
-  if (nums.length === 3) return nums[0] + nums[1] + nums[2] === 0 ? [nums] : [];
-
-  // sort the array to manage our left right and current pointers
-  nums.sort((a, b) => a - b);
+var insert = function (intervals, newInterval) {
+  // copy the intervals array
+  let arrayWithNewInterval = [...intervals];
+  // insert the newInterval to the cloned array
+  arrayWithNewInterval.push(newInterval);
+  // Sort the cloned array based on first element
+  arrayWithNewInterval.sort((a, b) => a[0] - b[0]);
 
   let result = [];
 
-  for (let i = 0; i < nums.length; i++) {
-    // Loop over the nums and if we find two adjacent numbers which are identical we don't need to iterate again
-    // so we continue
-    if (i > 0 && nums[i] === nums[i - 1]) continue;
-
-    // initialize our left pointer right next to our current index i
-    let left = i + 1;
-    // initialize our right pointer at the last index
-    let right = nums.length - 1;
-
-    // while our right and left haven't overlapped
-    while (right > left) {
-      // calculate the sum from i, left and right
-      let sum = nums[i] + nums[left] + nums[right];
-
-      if (sum === 0) {
-        // if sum is 0 then we have found our triplet
-        // push that into result array
-        result.push([nums[i], nums[left], nums[right]]);
-        // increment and decrement the left and right pointers respectively
-        left++;
-        right--;
-
-        // following is the optimization check so that we don't iterate over duplicate left and right values
-        while (right > left && nums[left] === nums[left - 1]) left++;
-        while (right > left && nums[right] === nums[right + 1]) right--;
-      } else if (sum > 0) {
-        // if sum is greater than 0, that means our right index is high
-        // so we decrement our right pointer
-        right--;
-      } else {
-        // if sum is less than 0, that means our left index is low
-        // so we increment our left pointer
-        left++;
-      }
+  // loop over cloned array
+  for (let [x, y] of arrayWithNewInterval) {
+    let currentResultLength = result.length;
+    if (!currentResultLength) {
+      // for empty result array we don't have anything to compare with so we push whatever we get
+      result.push([x, y]);
+      continue;
+    }
+    if (result[currentResultLength - 1][1] < x) {
+      // for input:
+      // intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
+      // arrayWithNewInterval will be : [[1,2],[3,5],[4,8],[6,7],[8,10],[12,16]]
+      // so when we are operating on [3, 5] there is [1, 2] present in result array
+      // this if statement is true because result[currentResultLength - 1][1] (2) is less than x (3)
+      // so we push because both intervals are out of bound and independent
+      result.push([x, y]);
+    } else {
+      // when we move next
+      // last element in result array will be [3, 5]
+      // [x, y] will be [4, 8]
+      // now 5 is not lesser than 4
+      // so we have to merge this bounds
+      // so instead of pushing we update the last element of result array
+      // we assign max between 1st index item of last item in result array and y
+      result[currentResultLength - 1][1] = Math.max(
+        result[currentResultLength - 1][1],
+        y
+      );
     }
   }
   return result;
