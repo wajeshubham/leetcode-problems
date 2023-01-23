@@ -13,6 +13,7 @@ var numOfMinutes = function (n, headID, manager, informTime) {
 
   // map the hierarchy inside adjList with each manager having it's employees
   for (let i = 0; i < manager.length; i++) {
+    // no need to consider the head because it's a source of the information
     if (manager[i] === -1) continue;
     adjList[manager[i]].push(i);
   }
