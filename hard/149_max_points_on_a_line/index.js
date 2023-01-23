@@ -11,7 +11,7 @@ function maxPoints(points) {
     let [x1, y1] = [...points[i]]; // for example: for points = [[1,1],[2,2],[3,3]] at index 0 [x1, y1] would be [1, 1]
 
     // keep track of the slope and current max points on the line
-    let currentMax = 1,
+    let currentMax = 1, // we keep currentMax 1 because in points array there will be st least 1 point
       slope = 0;
 
     // Now, we need second point on the plane to get enough material to calculate the slope
