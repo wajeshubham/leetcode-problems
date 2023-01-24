@@ -14,7 +14,7 @@ var snakesAndLadders = function (board) {
     if (row % 2 == 1) {
       // because the board is going in alternate direction for each row we want to flip position column number for each row with odd index
       col = length - 1 - col; // if we want to go to 7, the previous col value is (7 - 1 % 6) = 0 but as it is an odd row. So, we need to start at the end. See the following diagram.
-      //12 <- 11 <- 10 <- 9 <- 8 <- 7 (column for 7 is 5 (0 indexed) but if we calculate based on (square - 1) % length it calculates to 0 so we subtract it by board length to flip)
+      //12 <- 11 <- 10 <- 9 <- 8 <- 7 (column for 7 is 5 (0 indexed) but if we calculate based on (square - 1) % length it calculates to 0 so we subtract it from the board length to flip)
       //                            |(up)
       // 1 -> 2 -> 3 -> 4 -> 5 ->  6
       // so we subtract old col with (length - 1) so we get (6 - 1 - 0) = 5 (0 indexed col) which is correct if you see the board image for example 1 on leetcode (link in the README.md)
