@@ -41,7 +41,7 @@ var snakesAndLadders = function (board) {
       }
       if (nextSquare === length * length) {
         // if nextSquare is length^2 that means we have reached to the end
-        // so we return moves + 1 because we will have to play one move to reach to the end
+        // so we return moves + 1. We must have to play at least one move to reach to the end because question says that **Squares `1` (start) and `n^2`(end) do not have a snake or ladder.**
         return moves + 1;
       }
       if (!visited.has(nextSquare)) {
